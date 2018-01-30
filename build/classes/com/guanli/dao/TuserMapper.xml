@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.guanli.dao.TuserMapper" >
+  <resultMap id="BaseResultMap" type="com.guanli.pojo.Tuser" >
+    <id column="userId" property="userid" jdbcType="INTEGER" />
+    <result column="userName" property="username" jdbcType="VARCHAR" />
+    <result column="userPw" property="userpw" jdbcType="VARCHAR" />
+    <result column="userRealname" property="userrealname" jdbcType="VARCHAR" />
+    <result column="userSex" property="usersex" jdbcType="VARCHAR" />
+    <result column="userAge" property="userage" jdbcType="VARCHAR" />
+    <result column="userAddress" property="useraddress" jdbcType="VARCHAR" />
+    <result column="userTel" property="usertel" jdbcType="VARCHAR" />
+    <result column="userEmail" property="useremail" jdbcType="VARCHAR" />
+    <result column="userDel" property="userdel" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    userId, userName, userPw, userRealname, userSex, userAge, userAddress, userTel, userEmail, 
+    userDel
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.guanli.pojo.TuserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tuser
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  
+  <select id="selectTuserByUserName" parameterType="String" resultType="Tuser">
+  select * from tuser where username=#{username}
+  
+  </select>
+  <select id="selectIdByUserName" resultType="Integer" parameterType="String">
+  select userid from tuser where username=#{username}
+  </select>
+  
+  <select id="selectLogin" parameterType="com.guanli.pojo.Tuser" resultType="com.guanli.pojo.Tuser">
+  
+  select * from tuser where userName=#{username,jdbcType=VARCHAR}and userPw=#{userpw,jdbcType=VARCHAR}
+  
+  </select>
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tuser
+    where userId = #{userid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tuser
+    where userId = #{userid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.guanli.pojo.TuserExample" >
+    delete from tuser
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.guanli.pojo.Tuser" >
+    insert into tuser (userName, userPw, 
+      userRealname, userSex, userAge, 
+      userAddress, userTel, userEmail, 
+      userDel)
+    values (#{username,jdbcType=VARCHAR}, #{userpw,jdbcType=VARCHAR}, 
+      #{userrealname,jdbcType=VARCHAR}, #{usersex,jdbcType=VARCHAR}, #{userage,jdbcType=VARCHAR}, 
+      #{useraddress,jdbcType=VARCHAR}, #{usertel,jdbcType=VARCHAR}, #{useremail,jdbcType=VARCHAR}, 
+      #{userdel,jdbcType=VARCHAR})
+  </insert>
+  
+  
+  <insert id="insertSelective" parameterType="com.guanli.pojo.Tuser" >
+    insert into tuser
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="username != null" >
+        userName,
+      </if>
+      <if test="userpw != null" >
+        userPw,
+      </if>
+      <if test="userrealname != null" >
+        userRealname,
+      </if>
+      <if test="usersex != null" >
+        userSex,
+      </if>
+      <if test="userage != null" >
+        userAge,
+      </if>
+      <if test="useraddress != null" >
+        userAddress,
+      </if>
+      <if test="usertel != null" >
+        userTel,
+      </if>
+      <if test="useremail != null" >
+        userEmail,
+      </if>
+      <if test="userdel != null" >
+        userDel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userpw != null" >
+        #{userpw,jdbcType=VARCHAR},
+      </if>
+      <if test="userrealname != null" >
+        #{userrealname,jdbcType=VARCHAR},
+      </if>
+      <if test="usersex != null" >
+        #{usersex,jdbcType=VARCHAR},
+      </if>
+      <if test="userage != null" >
+        #{userage,jdbcType=VARCHAR},
+      </if>
+      <if test="useraddress != null" >
+        #{useraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="usertel != null" >
+        #{usertel,jdbcType=VARCHAR},
+      </if>
+      <if test="useremail != null" >
+        #{useremail,jdbcType=VARCHAR},
+      </if>
+      <if test="userdel != null" >
+        #{userdel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.guanli.pojo.TuserExample" resultType="java.lang.Integer" >
+    select count(*) from tuser
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tuser
+    <set >
+      <if test="record.userid != null" >
+        userId = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null" >
+        userName = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userpw != null" >
+        userPw = #{record.userpw,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userrealname != null" >
+        userRealname = #{record.userrealname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usersex != null" >
+        userSex = #{record.usersex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userage != null" >
+        userAge = #{record.userage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useraddress != null" >
+        userAddress = #{record.useraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usertel != null" >
+        userTel = #{record.usertel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useremail != null" >
+        userEmail = #{record.useremail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userdel != null" >
+        userDel = #{record.userdel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tuser
+    set userId = #{record.userid,jdbcType=INTEGER},
+      userName = #{record.username,jdbcType=VARCHAR},
+      userPw = #{record.userpw,jdbcType=VARCHAR},
+      userRealname = #{record.userrealname,jdbcType=VARCHAR},
+      userSex = #{record.usersex,jdbcType=VARCHAR},
+      userAge = #{record.userage,jdbcType=VARCHAR},
+      userAddress = #{record.useraddress,jdbcType=VARCHAR},
+      userTel = #{record.usertel,jdbcType=VARCHAR},
+      userEmail = #{record.useremail,jdbcType=VARCHAR},
+      userDel = #{record.userdel,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.guanli.pojo.Tuser" >
+    update tuser
+    <set >
+      <if test="username != null" >
+        userName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userpw != null" >
+        userPw = #{userpw,jdbcType=VARCHAR},
+      </if>
+      <if test="userrealname != null" >
+        userRealname = #{userrealname,jdbcType=VARCHAR},
+      </if>
+      <if test="usersex != null" >
+        userSex = #{usersex,jdbcType=VARCHAR},
+      </if>
+      <if test="userage != null" >
+        userAge = #{userage,jdbcType=VARCHAR},
+      </if>
+      <if test="useraddress != null" >
+        userAddress = #{useraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="usertel != null" >
+        userTel = #{usertel,jdbcType=VARCHAR},
+      </if>
+      <if test="useremail != null" >
+        userEmail = #{useremail,jdbcType=VARCHAR},
+      </if>
+      <if test="userdel != null" >
+        userDel = #{userdel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where userId = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.guanli.pojo.Tuser" >
+    update tuser
+    set userName = #{username,jdbcType=VARCHAR},
+      userPw = #{userpw,jdbcType=VARCHAR},
+      userRealname = #{userrealname,jdbcType=VARCHAR},
+      userSex = #{usersex,jdbcType=VARCHAR},
+      userAge = #{userage,jdbcType=VARCHAR},
+      userAddress = #{useraddress,jdbcType=VARCHAR},
+      userTel = #{usertel,jdbcType=VARCHAR},
+      userEmail = #{useremail,jdbcType=VARCHAR},
+      userDel = #{userdel,jdbcType=VARCHAR}
+    where userId = #{userid,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateByUserName" parameterType="Tuser">
+  update tuser
+ set  userPw = #{userpw,jdbcType=VARCHAR},
+      userRealname = #{userrealname,jdbcType=VARCHAR},
+      userSex = #{usersex,jdbcType=VARCHAR},
+      userAge = #{userage,jdbcType=VARCHAR},
+      userAddress = #{useraddress,jdbcType=VARCHAR},
+      userTel = #{usertel,jdbcType=VARCHAR},
+      userEmail = #{useremail,jdbcType=VARCHAR},
+      userDel = #{userdel,jdbcType=VARCHAR}
+    where userName = #{username,jdbcType=VARCHAR}
+  
+  </update>
+</mapper>

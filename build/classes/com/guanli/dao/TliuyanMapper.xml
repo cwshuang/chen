@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.guanli.dao.TliuyanMapper" >
+  <resultMap id="BaseResultMap" type="com.guanli.pojo.Tliuyan" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="neirong" property="neirong" jdbcType="VARCHAR" />
+    <result column="liuyanshi" property="liuyanshi" jdbcType="TIMESTAMP" />
+    <result column="userId" property="userid" jdbcType="INTEGER" />
+    <result column="huifu" property="huifu" jdbcType="VARCHAR" />
+    <result column="huifushi" property="huifushi" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, neirong, liuyanshi, userId, huifu, huifushi
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.guanli.pojo.TliuyanExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tliuyan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tliuyan
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tliuyan
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.guanli.pojo.TliuyanExample" >
+    delete from tliuyan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  
+  
+  <insert id="insertliuayn" parameterType="com.guanli.pojo.Tliuyan" >
+  insert into tliuyan(neirong,liuyanshi,userid,huifu,huifushi) values(#{neirong},#{liuyanshi},#{userid},#{huifu},#{huifushi})
+  
+  </insert>
+  
+  
+  
+  <insert id="insert" parameterType="com.guanli.pojo.Tliuyan" >
+    insert into tliuyan (id, neirong, liuyanshi, 
+      userId, huifu, huifushi
+      )
+    values (#{id,jdbcType=INTEGER}, #{neirong,jdbcType=VARCHAR}, #{liuyanshi,jdbcType=TIMESTAMP}, 
+      #{userid,jdbcType=INTEGER}, #{huifu,jdbcType=VARCHAR}, #{huifushi,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.guanli.pojo.Tliuyan" >
+    insert into tliuyan
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="neirong != null" >
+        neirong,
+      </if>
+      <if test="liuyanshi != null" >
+        liuyanshi,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="huifu != null" >
+        huifu,
+      </if>
+      <if test="huifushi != null" >
+        huifushi,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="neirong != null" >
+        #{neirong,jdbcType=VARCHAR},
+      </if>
+      <if test="liuyanshi != null" >
+        #{liuyanshi,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="huifu != null" >
+        #{huifu,jdbcType=VARCHAR},
+      </if>
+      <if test="huifushi != null" >
+        #{huifushi,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.guanli.pojo.TliuyanExample" resultType="java.lang.Integer" >
+    select count(*) from tliuyan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tliuyan
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.neirong != null" >
+        neirong = #{record.neirong,jdbcType=VARCHAR},
+      </if>
+      <if test="record.liuyanshi != null" >
+        liuyanshi = #{record.liuyanshi,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userid != null" >
+        userId = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.huifu != null" >
+        huifu = #{record.huifu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.huifushi != null" >
+        huifushi = #{record.huifushi,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tliuyan
+    set id = #{record.id,jdbcType=INTEGER},
+      neirong = #{record.neirong,jdbcType=VARCHAR},
+      liuyanshi = #{record.liuyanshi,jdbcType=TIMESTAMP},
+      userId = #{record.userid,jdbcType=INTEGER},
+      huifu = #{record.huifu,jdbcType=VARCHAR},
+      huifushi = #{record.huifushi,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.guanli.pojo.Tliuyan" >
+    update tliuyan
+    <set >
+      <if test="neirong != null" >
+        neirong = #{neirong,jdbcType=VARCHAR},
+      </if>
+      <if test="liuyanshi != null" >
+        liuyanshi = #{liuyanshi,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="huifu != null" >
+        huifu = #{huifu,jdbcType=VARCHAR},
+      </if>
+      <if test="huifushi != null" >
+        huifushi = #{huifushi,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.guanli.pojo.Tliuyan" >
+    update tliuyan
+    set neirong = #{neirong,jdbcType=VARCHAR},
+      liuyanshi = #{liuyanshi,jdbcType=TIMESTAMP},
+      userId = #{userid,jdbcType=INTEGER},
+      huifu = #{huifu,jdbcType=VARCHAR},
+      huifushi = #{huifushi,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updatethuifu"  parameterType="com.guanli.pojo.Tliuyan">
+  update tliuyan
+  set huifu=#{huifu},
+  huifushi=#{huifushi}
+  where userid=#{userid}
+  </update>
+</mapper>

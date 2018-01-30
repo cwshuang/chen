@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.guanli.dao.TxianluMapper" >
+  <resultMap id="BaseResultMap" type="com.guanli.pojo.Txianlu" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="xianlumincheng" property="xianlumincheng" jdbcType="VARCHAR" />
+    <result column="fatuandidian" property="fatuandidian" jdbcType="VARCHAR" />
+    <result column="fatuanshiian" property="fatuanshiian" jdbcType="TIMESTAMP" />
+    <result column="xianlujiage" property="xianlujiage" jdbcType="VARCHAR" />
+    <result column="lianxidianhua" property="lianxidianhua" jdbcType="VARCHAR" />
+    <result column="lianxiren" property="lianxiren" jdbcType="VARCHAR" />
+    <result column="fabushijian" property="fabushijian" jdbcType="TIMESTAMP" />
+    <result column="del" property="del" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, xianlumincheng, fatuandidian, fatuanshiian, xianlujiage, lianxidianhua, lianxiren, 
+    fabushijian, del
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.guanli.pojo.TxianluExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from txianlu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from txianlu
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from txianlu
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.guanli.pojo.TxianluExample" >
+    delete from txianlu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.guanli.pojo.Txianlu" >
+    insert into txianlu (id, xianlumincheng, fatuandidian, 
+      fatuanshiian, xianlujiage, lianxidianhua, 
+      lianxiren, fabushijian, del
+      )
+    values (#{id,jdbcType=INTEGER}, #{xianlumincheng,jdbcType=VARCHAR}, #{fatuandidian,jdbcType=VARCHAR}, 
+      #{fatuanshiian,jdbcType=TIMESTAMP}, #{xianlujiage,jdbcType=VARCHAR}, #{lianxidianhua,jdbcType=VARCHAR}, 
+      #{lianxiren,jdbcType=VARCHAR}, #{fabushijian,jdbcType=TIMESTAMP}, #{del,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.guanli.pojo.Txianlu" >
+    insert into txianlu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="xianlumincheng != null" >
+        xianlumincheng,
+      </if>
+      <if test="fatuandidian != null" >
+        fatuandidian,
+      </if>
+      <if test="fatuanshiian != null" >
+        fatuanshiian,
+      </if>
+      <if test="xianlujiage != null" >
+        xianlujiage,
+      </if>
+      <if test="lianxidianhua != null" >
+        lianxidianhua,
+      </if>
+      <if test="lianxiren != null" >
+        lianxiren,
+      </if>
+      <if test="fabushijian != null" >
+        fabushijian,
+      </if>
+      <if test="del != null" >
+        del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="xianlumincheng != null" >
+        #{xianlumincheng,jdbcType=VARCHAR},
+      </if>
+      <if test="fatuandidian != null" >
+        #{fatuandidian,jdbcType=VARCHAR},
+      </if>
+      <if test="fatuanshiian != null" >
+        #{fatuanshiian,jdbcType=TIMESTAMP},
+      </if>
+      <if test="xianlujiage != null" >
+        #{xianlujiage,jdbcType=VARCHAR},
+      </if>
+      <if test="lianxidianhua != null" >
+        #{lianxidianhua,jdbcType=VARCHAR},
+      </if>
+      <if test="lianxiren != null" >
+        #{lianxiren,jdbcType=VARCHAR},
+      </if>
+      <if test="fabushijian != null" >
+        #{fabushijian,jdbcType=TIMESTAMP},
+      </if>
+      <if test="del != null" >
+        #{del,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.guanli.pojo.TxianluExample" resultType="java.lang.Integer" >
+    select count(*) from txianlu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update txianlu
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.xianlumincheng != null" >
+        xianlumincheng = #{record.xianlumincheng,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fatuandidian != null" >
+        fatuandidian = #{record.fatuandidian,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fatuanshiian != null" >
+        fatuanshiian = #{record.fatuanshiian,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.xianlujiage != null" >
+        xianlujiage = #{record.xianlujiage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lianxidianhua != null" >
+        lianxidianhua = #{record.lianxidianhua,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lianxiren != null" >
+        lianxiren = #{record.lianxiren,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fabushijian != null" >
+        fabushijian = #{record.fabushijian,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.del != null" >
+        del = #{record.del,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update txianlu
+    set id = #{record.id,jdbcType=INTEGER},
+      xianlumincheng = #{record.xianlumincheng,jdbcType=VARCHAR},
+      fatuandidian = #{record.fatuandidian,jdbcType=VARCHAR},
+      fatuanshiian = #{record.fatuanshiian,jdbcType=TIMESTAMP},
+      xianlujiage = #{record.xianlujiage,jdbcType=VARCHAR},
+      lianxidianhua = #{record.lianxidianhua,jdbcType=VARCHAR},
+      lianxiren = #{record.lianxiren,jdbcType=VARCHAR},
+      fabushijian = #{record.fabushijian,jdbcType=TIMESTAMP},
+      del = #{record.del,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.guanli.pojo.Txianlu" >
+    update txianlu
+    <set >
+      <if test="xianlumincheng != null" >
+        xianlumincheng = #{xianlumincheng,jdbcType=VARCHAR},
+      </if>
+      <if test="fatuandidian != null" >
+        fatuandidian = #{fatuandidian,jdbcType=VARCHAR},
+      </if>
+      <if test="fatuanshiian != null" >
+        fatuanshiian = #{fatuanshiian,jdbcType=TIMESTAMP},
+      </if>
+      <if test="xianlujiage != null" >
+        xianlujiage = #{xianlujiage,jdbcType=VARCHAR},
+      </if>
+      <if test="lianxidianhua != null" >
+        lianxidianhua = #{lianxidianhua,jdbcType=VARCHAR},
+      </if>
+      <if test="lianxiren != null" >
+        lianxiren = #{lianxiren,jdbcType=VARCHAR},
+      </if>
+      <if test="fabushijian != null" >
+        fabushijian = #{fabushijian,jdbcType=TIMESTAMP},
+      </if>
+      <if test="del != null" >
+        del = #{del,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.guanli.pojo.Txianlu" >
+    update txianlu
+    set xianlumincheng = #{xianlumincheng,jdbcType=VARCHAR},
+      fatuandidian = #{fatuandidian,jdbcType=VARCHAR},
+      fatuanshiian = #{fatuanshiian,jdbcType=TIMESTAMP},
+      xianlujiage = #{xianlujiage,jdbcType=VARCHAR},
+      lianxidianhua = #{lianxidianhua,jdbcType=VARCHAR},
+      lianxiren = #{lianxiren,jdbcType=VARCHAR},
+      fabushijian = #{fabushijian,jdbcType=TIMESTAMP},
+      del = #{del,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
